@@ -160,3 +160,18 @@ any other options you would specify.
 
 If you have any problems with or questions about this image, please contact me
 through a [GitHub issue](https://github.com/dperson/samba/issues).
+
+docker run --name samba \
+    --detach \
+    --restart always \
+    --publish 139:139 --publish 445:445 \
+    --env USERID="0" \
+    --env GROUPID="0" \
+    --volume /home/pbversion/Sambashare/data:/share \
+    dperson/samba:latest \
+        -u "admin;123456" \
+        -u "public;123456" \
+        -u "print;print" \
+        -s "public;/share/public;yes;no;no;public;admin;admin;公共共享文件夹" \
+        -s "print;/share/print;yes;no;no;print;admin;admin;打印机共享文件夹" \
+       
